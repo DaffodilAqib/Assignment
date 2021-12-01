@@ -1,0 +1,37 @@
+.textbar{
+    margin-left: 40%;
+    width: 150px;
+    border: 2px solid black;
+    border-radius: 17px;
+    text-align: center;
+    height: 49px;
+    font-size: 22px;
+}
+.submit_bt{
+    background-color: lawngreen;
+    border: none;
+    color: white;
+    padding: 15px 32px;
+    text-align: center;
+    display: inline-block;
+    font-size: 16px;
+}
+.textbar:focus{
+    border: none;
+}
+.even{
+    width: 125px;
+    height: 125px;
+    text-align: center;
+    font-size: 45px;
+    float:left;
+}
+.odd{
+    width: 125px;
+    height: 125px;
+    text-align: center;
+    background: black;
+    font-size: 45px;
+    color:white;
+    float:left;
+}

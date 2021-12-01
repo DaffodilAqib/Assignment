@@ -1,0 +1,77 @@
+<html>
+    <head>
+        <link rel="stylesheet" href="stylesheet.css">	
+        
+    </head>
+    <body>
+        <div style="margin-bottom: 10px;">
+            <input type="text" class="textbar" id="textbar_1">
+            <input type="button" class="submit_bt" onclick="check()" value="Submit">
+        </div>
+            <p class="message_box" id="Error_message" style="color: red;"></p>
+            <div class="container_1" id="container"></div>
+            <script>
+                let num = 0;
+                let parent = document.getElementById("container");
+                let child = document.createElement("div");
+                function check(){   
+                    if(num!=0){
+                            console.log(num);
+                            //child.remove();
+                            num =0;
+                            parent.removeChild(child);
+                            child = document.createElement("div");
+                            
+                        }
+                    let val = Number(document.getElementById("textbar_1").value);
+                    if(val<0 || isNaN(val)){
+                        document.getElementById("container").style.display="none";
+                        document.getElementById("Error_message").style.display="block";
+                        document.getElementById("Error_message").innerHTML = "Wrong choice.";
+                    }
+                    else if(val>100){
+                        document.getElementById("container").style.display="none";
+                        document.getElementById("Error_message").style.display="block";
+                        document.getElementById("Error_message").innerHTML = "Limit exceed";
+                    }
+                    else{
+                        // if(num!=0){
+                        //     console.log(num);
+                        //     //child.remove();
+                        //     parent.removeChild(child);
+                            
+                        // }
+                        document.getElementById("Error_message").style.display="none";
+                        document.getElementById("container").style.display="block";
+                        //let text = "";
+                        
+                        for(let i=1;i<=val;i++){
+                            if(i%2==0){
+                                //text += `<div class="even">${i}</div>`
+                                const js_div = document.createElement("div");
+                                let node = document.createTextNode(i);
+                                js_div.appendChild(node);
+                                js_div.className = "even";
+                                child.appendChild(js_div);
+                            }
+                            else{
+                                //text += `<div class="odd">${i}</div>`
+                                const js_div = document.createElement("div");
+                                let node = document.createTextNode(i);
+                                js_div.appendChild(node);
+                                js_div.className = "odd";
+                                child.appendChild(js_div);
+                            }
+                        
+                            // if(i%10==0){
+                            //     text += "<br>"
+                            // }
+                        }
+                        num+=1;
+                        parent.appendChild(child);
+                        //document.getElementById("container").innerHTML = text;
+                    }
+                }
+            </script>
+    </body>
+</html>
