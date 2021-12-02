@@ -1,0 +1,119 @@
+<html>
+  <head>
+    <title>Book Library</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+<style>
+    label{
+        color: #fff;
+    }
+</style> 
+</head>
+  <body>
+    <form accept="" action="">
+     <div class="container p-5 bg-secondary">
+         <div class="row w-100 d-flex">
+        <div class="form-group col-md-6">
+            <label for="inputBookName">Book Name</label>
+            <input type="text" class="form-control" id="inputBookName" placeholder="Daffodil" required/>
+          </div>
+          <label for="Author Name mt-2">Author Name</label>
+          <div class="form-group col-md-6">
+              <label for="inputFirstName">FirstName</label>
+              <input type="text" class="form-control" id="inputFirstName"
+                placeholder="Mohd Aqib"
+              />
+            </div>
+            <div class="form-group col-md-6">
+              <label for="inputLastName">LastName</label>
+              <input
+                type="text"
+                class="form-control"
+                id="inputLastName"
+                placeholder="Khan"
+              />
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="inputDescription">Description</label>
+            <input
+              type="text"
+              class="form-control"
+              id="inputDescription"
+              placeholder=""
+            />
+          </div>
+          <button type="submit" class="btn btn-primary" onclick="addDetails()">
+            Sign in
+          </button>
+     </div>
+    </form>
+    <label>Your Books</label>
+    <div class="list-group" id="container">
+      
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js" integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js" integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF" crossorigin="anonymous"></script>    <script>
+        let recordlist = JSON.parse(localStorage.getItem("owner"))?JSON.parse(localStorage.getItem("owner")):[];
+        let div_block = document.getElementById("container");
+        let numberOfRecord = recordlist.length;
+        const displayInitalRecord = () =>{       
+            // console.log(recordlist);
+               if(numberOfRecord>0){
+                   createPostView(recordlist);
+               }
+          }
+        displayInitalRecord();
+        function addDetails() {
+          let bName = document.getElementById('inputBookName');
+          let authFirstName = document.getElementById('inputFirstName');
+          let authLastName = document.getElementById('inputLastName');
+          let bDesc = document.getElementById('inputDescription');
+          let bDate = new Date();
+          let bookDetails = {
+            'Title': bName.value,
+            'FirstName': authFirstName.value,
+            'LastName': authLastName.value,
+            'BookDescription': bDesc.value,
+            'Date':bDate
+          };
+          if((bName.value && authFirstName.value && authLastName.value && bDesc.value )){
+            recordlist.push(bookDetails);  
+            localStorage.setItem("owner",JSON.stringify(recordlist));
+            numberOfRecord = recordlist.length;
+            createPostView(recordlist.slice(numberOfRecord-1,numberOfRecord));
+          }
+          
+        }
+        function createPostView(records){
+            //console.log(localStorage.getItem("owner"));
+            let size = records.length;
+            for(let x=0;x<size;x++){
+                    let js_div1 = document.createElement("div");
+                    js_div1.className = "list-group-item list-group-item-action";
+                    let js_div2 = document.createElement("div");
+                    js_div2.className = "d-flex w-100 justify-content-between";
+                    let js_h5 = document.createElement("h5");
+                    js_h5.className = "mb-1";
+                    let node1 = document.createTextNode(records[x].Title);
+                    js_h5.appendChild(node1);
+                    let js_small = document.createElement("small");
+                    let node2 = document.createTextNode(records[x].Date);
+                    js_small.appendChild(node2);
+                    js_div2.appendChild(js_h5);
+                    js_div2.appendChild(js_small);
+                    js_div1.appendChild(js_div2);
+                    let js_p = document.createElement("p");
+                    js_p.className = "mb-1";
+                    let node3 = document.createTextNode(records[x].BookDescription);
+                    js_p.appendChild(node3);
+                    let js_small2 = document.createElement("small");
+                    let node4 = document.createTextNode(records[x].FirstName+" "+records[x].LastName);
+                    js_small2.appendChild(node4);
+                    js_div1.appendChild(js_p);
+                    js_div1.appendChild(js_small2);
+                    div_block.appendChild(js_div1);             
+            }
+        }
+      </script>
+  </body>
+</html>
