@@ -1,0 +1,33 @@
+<html>
+    <head>
+
+    </head>
+    <body>
+        <script>
+            // function display(){
+            //     let mess = confirm("Are you sure");
+            //     console.log(mess);
+            // }
+            async function Demo(){
+                const myPromise = new Promise(function(myResolve,myReject){
+                    if(confirm("Are you sure")){
+                        myResolve("Success");
+                    }
+                    else{
+                        myReject("Failure");
+                    }
+                });
+                alert(await myPromise);
+            }
+            Demo();
+
+
+            async function Test() {
+                var tes1 = await fetch('testt-1');
+                var test2 = await fetch('tesst-2');
+            }
+            
+        </script>
+    </body>
+
+</html>
