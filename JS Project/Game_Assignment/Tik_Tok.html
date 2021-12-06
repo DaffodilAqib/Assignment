@@ -1,0 +1,190 @@
+<html>
+  <head>
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+    <link rel="stylesheet" href="mystyle.css" />
+  </head>
+  <body>
+    <div class="container" id="main_container">
+      <div class="inner_container">
+        <div class="row">
+          <div
+            class="element"
+            onclick="Begin(0,0,'element1')"
+            id="element1"
+          ></div>
+          <div
+            class="element"
+            onclick="Begin(0,1,'element2')"
+            id="element2"
+            style="
+              margin-left: 2px;
+              margin-right: 2px;
+              border-left: 2px solid;
+              border-right: 2px solid;
+            "
+          ></div>
+          <div
+            class="element"
+            onclick="Begin(0,2,'element3')"
+            id="element3"
+          ></div>
+        </div>
+      </div>
+      <div class="inner_container">
+        <div
+          class="row"
+          style="border-top: 2px solid; border-bottom: 2px solid"
+        >
+          <div
+            class="element"
+            onclick="Begin(1,0,'element4')"
+            id="element4"
+          ></div>
+          <div
+            class="element middle"
+            onclick="Begin(1,1,'element5')"
+            id="element5"
+            style="
+              margin-left: 2px;
+              margin-right: 2px;                                                                                                                                                                                                                                              
+              border-left: 2px solid;
+              border-right: 2px solid;
+            "
+          ></div>
+          <div
+            class="element"
+            onclick="Begin(1,2,'element6')"
+            id="element6"
+          ></div>
+        </div>
+      </div>
+      <div class="inner_container">
+        <div class="row">
+          <div
+            class="element"
+            onclick="Begin(2,0,'element7')"
+            id="element7"
+          ></div>
+          <div
+            class="element"
+            onclick="Begin(2,1,'element8')"
+            id="element8"
+            style="
+              margin-left: 2px;
+              margin-right: 2px;
+              border-left: 2px solid;
+              border-right: 2px solid;
+            "
+          ></div>
+          <div
+            class="element"
+            onclick="Begin(2,2,'element9')"
+            id="element9"
+          ></div>
+        </div>
+      </div>
+    </div>
+    <div style="margin: 50px">
+      <div class="bottom-left_button">
+        <div>Player 1</div>
+        <div style="margin-left: 2px">X</div>
+      </div>
+      <div class="bottom-right_button">
+        <div>Player 2</div>
+        <div style="margin-left: 2px">O</div>
+      </div>
+    </div>
+    <script>
+      let count = 1;
+      let xPerson = [
+        [0, 0, 0],
+        [0, 0, 0],
+        [0, 0, 0],
+      ];
+      let zPerson = [
+        [0, 0, 0],
+        [0, 0, 0],
+        [0, 0, 0],
+      ];
+      function Begin(x, y, elementid) {
+        if (count % 2 == 0) {
+          if (zPerson[x][y] == 1 || xPerson[x][y] == 1) {
+            swal('Wrong Choice');
+          } else {
+            zPerson[x][y] = 1;
+            document.getElementById(elementid).innerHTML = 'O';
+            if (
+              rowVerification(x, zPerson) ||
+              colVerification(y, zPerson) ||
+              diaVerfication(x, y, zPerson)
+            ) {
+              
+              message("Player 2");
+            }
+            count += 1;
+          }
+        } else {
+          if (xPerson[x][y] == 1 || zPerson[x][y] == 1) {
+            swal('Wrong Choice');
+          } else {
+            xPerson[x][y] = 1;
+            document.getElementById(elementid).innerHTML = 'X';
+            if (
+              rowVerification(x, xPerson) ||
+              colVerification(y, xPerson) ||
+              diaVerfication(x, y, xPerson)
+            ){
+              message("Player 1");
+            }
+            count += 1;
+          }
+        }
+        if (count == 10) {
+          message("No one");
+        }
+      }
+      const message = (num) => {
+        swal({
+            title: `${num} Win`,
+            text: "Do You Want to Play Again?",
+            icon: "success",
+            buttons: true,
+            dangerMode: true,
+        })
+        .then((willDelete) => {
+            if (willDelete) {
+                location.reload();
+            } else {
+                document.getElementById('main_container').innerHTML ='<h1>Thanks For Playing</h1>';
+            }
+        });        
+         
+      }
+      const rowVerification = (x, arr) => {
+        if (arr[x][0] == 1 && arr[x][1] == 1 && arr[x][2] == 1) {
+          return true;
+        }
+        return false;
+      };
+      const colVerification = (y, arr) => {
+        if (arr[0][y] == 1 && arr[1][y] == 1 && arr[2][y] == 1) {
+          return true;
+        }
+        return false;
+      };
+      const diaVerfication = (x, y, arr) => {
+        if ((x == 0 && y == 0) || (x == 2 && y == 2) || (x == 1 && y == 1)) {
+          if (arr[0][0] == 1 && arr[1][1] == 1 && arr[2][2] == 1) {
+            return true;
+          }
+        }
+        if ((x == 2 && y == 0) || (x == 0 && y == 2) || (x == 1 && y == 1)) {
+          if (arr[2][0] == 1 && arr[1][1] == 1 && arr[0][2] == 1) {
+            return true;
+          }
+        }
+        return false;
+      };
+    </script>
+  </body>
+</html>
