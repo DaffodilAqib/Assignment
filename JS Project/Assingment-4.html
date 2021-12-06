@@ -10,11 +10,11 @@
             // }
             async function Demo(){
                 const myPromise = new Promise(function(myResolve,myReject){
-                    if(confirm("Are you sure")){
-                        myResolve("Success");
+                    if(confirm("Are you Real Sure")){
+                        myResolve("Success OK");
                     }
                     else{
-                        myReject("Failure");
+                        myReject("Failure Error");
                     }
                 });
                 alert(await myPromise);
